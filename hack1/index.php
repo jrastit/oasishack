@@ -12,6 +12,7 @@ echo "command:".$cmd.$br;
 $node_list_json = shell_exec( $cmd );
 $node_json_list = explode ("\n" , $node_list_json);
 $target_list = array();
+$up_list = array();
 
 //get target list from node list (debug port open)
 foreach ($node_json_list as $node_json){
@@ -22,8 +23,18 @@ foreach ($node_json_list as $node_json){
 		foreach($node->consensus->addresses as $address){
 			//echo "==>".$address.$br;
 			$ip = explode(":",explode ("@" , $address)[1])[0];
-			echo "==>".$ip.$br;
+			$ip_port = explode(":",explode ("@" , $address)[1])[1];
+			echo "==>".$ip.':'.$ip_port.$br;
+			
 			if ($hack || $ip == "34.83.124.86" /* my ip */){
+				$cmd = "nmap -Pn -p $ip_port $ip | grep $ip_port | grep open";
+				$result = shell_exec( $cmd );
+				if ($result){
+					echo "== ".$ip_port." open".$br;
+					array_push($up_list, $ip.":".$ip_port);
+				}else{
+					echo "== ".$ip_port." close".$br;
+				}
 				foreach($port_list as $port){
 					$cmd = "nmap -Pn -p $port $ip | grep $port | grep open";
 					$result = shell_exec( $cmd );
@@ -61,12 +72,14 @@ if (count($target_list)){
 
 
 if (count($success_list)){
-	echo "list of ".count($success_list)." success: ".$br;
+	echo "list of ".count($success_list)." with debug port open : ".$br;
 	foreach ($success_list as $target){
 		echo "success : ".$target.$br;
 	}
 } else {
 	echo "no target success".$br;
 }
+
+echo "result : ".count($node_json_list)." nodes registered with ".count($up_list)." nodes up and ".count($success_list)." with debug port open".$br
 
 ?>
