@@ -1,7 +1,7 @@
-cmd="nc oasis 26656"
-
 #!/bin/bash
-for i in $(seq 1 1 10000)
+cmd="nc $1 $2"
+
+for i in $(seq 1 1 1000)
 do
    echo "Welcome $i times"
    $cmd >/dev/null &
