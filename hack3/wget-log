@@ -1,0 +1,11 @@
+--2020-01-15 23:12:10--  http://oasis/node_list.php
+Resolving oasis (oasis)... 35.223.20.90
+Connecting to oasis (oasis)|35.223.20.90|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘STDOUT’
+
+     0K .......... .......... .......... .......... .           186K=0.2s
+
+2020-01-15 23:12:11 (186 KB/s) - written to stdout [42803]
+
