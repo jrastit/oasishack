@@ -1,5 +1,5 @@
 #!/bin/bash
-cmd="nc $1 $2"
+cmd="nc $1 $2 -w 5"
 
 for i in $(seq 1 1 2000)
 do

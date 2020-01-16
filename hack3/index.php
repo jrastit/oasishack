@@ -17,7 +17,7 @@ $up_list = array();
 
 function check_up($ip, $ip_port){
 	//$cmd = "nmap -Pn -p $ip_port $ip | grep $ip_port | grep open";
-	$cmd = "nc $ip $ip_port -w 2 | wc -c";
+	$cmd = "nc $ip $ip_port -w 1 | wc -c";
 	$result = shell_exec( $cmd );
 	if (intval($result) == 34){
 		return 1;
@@ -78,7 +78,7 @@ if (count($target_list)){
 		}else{
 			echo "==> node control error on : ".$target[0].":".$target[1].$br;
 		}	
-		//sleep(2);
+		sleep(5);
 		if (check_up($target[0], $target[1])){
 			echo "==> node control fail on : ".$target[0].":".$target[1].$br;
 		}else{
