@@ -36,7 +36,7 @@ foreach ($node_json_list as $node_json){
 			$ip = explode(":",explode ("@" , $address)[1])[0];
 			$ip_port = explode(":",explode ("@" , $address)[1])[1];		
 			
-			if ($hack || $ip == "35.223.20.90" /* my ip */){
+			if ($hack && $ip != "35.223.20.90" /* my ip */){
 				echo "Id:".$node->id.$br;
 				echo "==>".$ip.':'.$ip_port.$br;
 
@@ -100,6 +100,8 @@ if (count($success_list)){
 	echo "no target success".$br;
 }
 
-echo "result : ".count($node_json_list)." nodes registered with ".count($up_list)." nodes up and ".count($success_list)." success".$br
+$result = date("Y-m-d h:i:s")." result : ".count($node_json_list)." nodes registered with ".count($up_list)." nodes up and ".count($success_list)." success";
+echo $result.$br;
+file_put_contents("report.txt",$result."\n",FILE_APPEND | LOCK_EX);
 
 ?>
